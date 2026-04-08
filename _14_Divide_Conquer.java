@@ -54,12 +54,44 @@ public class _14_Divide_Conquer {
 
 
     //Quick Sort function
+    public static void quickSort(int arr[], int si, int ei) {
+        //base case
+        if(si >= ei) {
+            return;
+        }
+
+        //Pivot - last element
+        int pIdx = partition(arr, si, ei);
+        quickSort(arr, si, pIdx-1); //left
+        quickSort(arr, pIdx+1, ei); //right
+
+    }
+
+    //Partition function - Quick sort
+    public static int partition(int arr[], int si, int ei) {
+        int pivot = arr[ei];
+        int i = si-1;
+
+        for(int j = si; j < ei; j++) {
+            if(arr[j] <= pivot) {
+                i++;
+                //swap
+                int temp = arr[j];
+                arr[j] = arr[i];
+                arr[i] = temp;
+            }
+        }
+        i++;
+        int temp = pivot;
+        arr[ei] = arr[i];
+        arr[i] = temp;
+        return i;
+    }
     
 
     public static void main(String[] args) {
-        //Merge Sort
         int arr[] = {2, 14, 6, 23, 69, -1};
-        mergeSort(arr, 0, arr.length-1);
+        quickSort(arr, 0, arr.length-1);
         printArr(arr);
     }
 }
